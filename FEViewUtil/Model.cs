@@ -1,43 +1,112 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FEViewUtil.Box;
+using FEViewUtil.TriangleFace;
+using FEViewUtil.Vertex;
+using System;
+using System.Collections;
 
 namespace FEViewUtil
 {
-    class Model
+    class Model : IEnumerable
     {
-        CADModel(void);
-    virtual ~CADModel(void);
+        private string _file;
+        private string _title;
+        private Box _modelBox;
+        private Box _viewBox;
+        private Vertex[] _vertexes;
+        private TriangleFace[] _faces;
 
-    void Reset(void);
-    bool New(const wchar_t* szName); // *.FEM-file
-    void FinalizeViewTransformation(void);
+        public string file
+        {
+            get
+            {
+                return _file;
+            }
+        }
 
-    const wchar_t*   GetName(void)              { return _pszName; }
-    const wchar_t*   GetTitle(void)             { return _pszTitle; }
-    const CADBox&    GetModelBox(void) const    { return _modelBox; }
-    const CADBox&    GetViewBox(void) const     { return _viewBox; }
+        public string title
+        {
+            get
+            {
+                return _title;
+            }
+        }
 
-    int              GetNoVerts(void) const     { return _nVerts; }
-    CADVertex*       GetVertex(int i);
+        public Box getModelBox()
+        { 
+            return _modelBox; 
+        }
 
-    const CADVertex* GetVertexArray(void) const { return _pVerts; }
-    CADTriangleFace* GetFirstFace(void)         { return _pFirstFace; }
+        public Box getViewBox()
+        {
+            return _viewBox;
+        }
 
+        public Vertex getVertex(int i)
+        {
+            return _vertexes[i];
+        }
 
-private:
-    wchar_t*         _pszName;
-    wchar_t*         _pszTitle;
+        public FaceEnumerator GetEnumerator()
+        {
+            return new FaceEnumerator(this);
+        }
 
-    int              _nVerts;
-    CADVertex*       _pVerts;
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return (IEnumerator)new FaceEnumerator(this);
+        }
 
-    int              _nFaces;
-    CADTriangleFace* _pFaces;
-    CADTriangleFace* _pFirstFace;
+        private class FaceEnumerator : IEnumerator
+        {
+            private int position = -1;
+            private Model model;
 
-    CADBox           _modelBox;
-    CADBox           _viewBox;
+            public FaceEnumerator(Model model)
+            {
+                this.model = model;
+            }
+
+            public bool MoveNext()
+            {
+                if (position < model._faces.Length - 1)
+                {
+                    ++position;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            public void Reset()
+            {
+                position = -1;
+            }
+
+            public TriangleFace Current
+            {
+                get
+                {
+                    return model._faces[position];
+                }
+            }
+
+            object IEnumerator.Current
+            {
+                get
+                {
+                    return model._faces[position];
+                }
+            }
+
+        }
+
+        //public void finalizeViewTransformation() {}
+
+        public void read(string file)
+        {
+            _file = file;
+        }
     }
 }

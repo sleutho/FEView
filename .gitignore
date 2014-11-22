@@ -4,6 +4,10 @@
 *.o
 *.obj
 
+# Studio Files
+obj/
+Properties/
+
 # Compiled Dynamic libraries
 *.so
 *.dylib

@@ -17,7 +17,6 @@ namespace FEViewUtil
             }
         }
 
-
         public Point viewPoint
         {
             get

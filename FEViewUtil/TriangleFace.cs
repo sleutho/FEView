@@ -1,27 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FEViewUtil.Point;
+using FEViewUtil.Vertex;
 
 namespace FEViewUtil
 {
     class TriangleFace
     {
-        CADTriangleFace(void) {}
-    virtual ~CADTriangleFace(void) {}
+        private int[] _vertexNumbers;
 
-    void Init(int i[3]);
+        public TriangleFace(int[] vertexNumbers)
+        {
+            _vertexNumbers = vertexNumbers;
+        }
 
-    const CADPoint& GetModelCoord(const CADVertex* pVerts, int i) const;
-    const CADPoint& GetViewCoord(const CADVertex* pVerts, int i) const;
-    int             GetPixelX(const CADVertex* pVerts, int i) const;
-    int             GetPixelY(const CADVertex* pVerts, int i) const;
+        Point getModelCoord(Vertex[] vertexes, int i)
+        {
+            return vertexes[_vertexNumbers[i]].modelPoint;
+        }
 
-    const CADTriangleFace* GetNext(void) const { return _pNext; }
+        Point getViewCoord(Vertex[] vertexes, int i)
+        {
+            return vertexes[_vertexNumbers[i]].viewPoint;
+        }
 
-private:
-    int _i[3];
+        int getPixelX(Vertex[] vertexes, int i)
+        {
+            return vertexes[_vertexNumbers[i]].xPixel;
+        }
 
-    const CADTriangleFace* _pNext;
+        int getPixelY(Vertex[] vertexes, int i)
+        {
+            return vertexes[_vertexNumbers[i]].xPixel;
+        }
     }
 }
