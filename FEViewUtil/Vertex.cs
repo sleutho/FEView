@@ -15,6 +15,10 @@ namespace FEViewUtil
             {
                 return _ptModel;
             }
+            set
+            {
+                _ptModel = value;
+            }
         }
 
         public Point viewPoint
