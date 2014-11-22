@@ -1,9 +1,7 @@
-﻿using FEViewUtil.Point;
-using FEViewUtil.Vector;
-
+﻿
 namespace FEViewUtil
 {
-    class Box
+    public class Box
     {
         public void add(Point pt)
         {

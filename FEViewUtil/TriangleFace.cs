@@ -1,9 +1,7 @@
-﻿using FEViewUtil.Point;
-using FEViewUtil.Vertex;
-
+﻿
 namespace FEViewUtil
 {
-    class TriangleFace
+    public class TriangleFace
     {
         private int[] _vertexNumbers;
 

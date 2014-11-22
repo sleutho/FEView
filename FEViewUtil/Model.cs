@@ -1,18 +1,15 @@
-﻿using FEViewUtil.Box;
-using FEViewUtil.TriangleFace;
-using FEViewUtil.Vertex;
-using System;
+﻿using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace FEViewUtil
 {
-    class Model : IEnumerable
+    public class Model : IEnumerable
     {
         private string _title;
-        private Box _modelBox;
-        private Box _viewBox;
+        private Box _modelBox = new Box();
+        private Box _viewBox = new Box();
         private List<Vertex> _vertexes = new List<Vertex>();
         private List<TriangleFace> _faces = new List<TriangleFace>();
 
@@ -49,7 +46,7 @@ namespace FEViewUtil
             return (IEnumerator)new FaceEnumerator(this);
         }
 
-        private class FaceEnumerator : IEnumerator
+        public class FaceEnumerator : IEnumerator
         {
             private int position = -1;
             private Model model;
@@ -95,6 +92,7 @@ namespace FEViewUtil
 
         }
 
+        //compute viewBox
         //public void finalizeViewTransformation() {}
 
         public void read(string file)
@@ -106,15 +104,15 @@ namespace FEViewUtil
                     while (sr.Peek() >= 0)
                     {
                         string line = sr.ReadLine();
-                        if (line == "---KNOTEN")
+                        if (line.StartsWith("---KNOTEN"))
                         {
                             readVertexes(sr);
                         }
-                        else if (line == "---ELEMENTE")
+                        else if (line.StartsWith("---ELEMENTE"))
                         {
                             readFaces(sr);
                         }
-                        else if (line == "---TITEL")
+                        else if (line.StartsWith("---TITEL"))
                         {
                             string titleLine = sr.ReadLine();
                             this._title = titleLine.Trim();
@@ -134,15 +132,17 @@ namespace FEViewUtil
             int peek = sr.Peek();
             while ( peek >= 0 )
             {
-                if ( (char)peek != '*' )
-                    sr.ReadLine();
+                if ((char)peek != '*')
+                    break;
+                sr.ReadLine();
                 peek = sr.Peek();
             }
 
             while ((char)peek != '-')
             {
                 string line = sr.ReadLine();
-                string[] fields = line.Split(null);
+                string[] fields = line.Split(null as char[], 
+                    System.StringSplitOptions.RemoveEmptyEntries);
 
                 Vertex v = new Vertex();
                 v.modelPoint = new Point(
@@ -150,6 +150,8 @@ namespace FEViewUtil
                     double.Parse(fields[2]),
                     double.Parse(fields[3]));
                 _vertexes.Add(v);
+
+                _modelBox.add(v.modelPoint);
 
                 peek = sr.Peek();
             }
@@ -161,14 +163,16 @@ namespace FEViewUtil
             while (peek >= 0)
             {
                 if ((char)peek != '*')
-                    sr.ReadLine();
+                    break;
+                sr.ReadLine();
                 peek = sr.Peek();
             }
 
             while ((char)peek != '-')
             {
                 string line = sr.ReadLine();
-                string[] fields = line.Split(null);
+                string[] fields = line.Split(null as char[],
+                    System.StringSplitOptions.RemoveEmptyEntries);
 
                 int[] vertexNumbers = {
                             int.Parse(fields[1]),

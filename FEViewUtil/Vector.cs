@@ -1,9 +1,8 @@
-﻿using FEViewUtil.Point;
-using System;
+﻿using System;
 
 namespace FEViewUtil
 {
-    class Vector
+    public class Vector
     {
         public Vector(double x, double y, double z)
         {

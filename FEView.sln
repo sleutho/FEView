@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FEViewUtil", "FEViewUtil\FEViewUtil.csproj", "{92256B4A-5241-40C4-B8D0-29D94B4DD807}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FEViewConsole", "FEViewConsole\FEViewConsole.csproj", "{D1FABB87-E0FB-46CB-8528-2C1CDF4E24C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{92256B4A-5241-40C4-B8D0-29D94B4DD807}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92256B4A-5241-40C4-B8D0-29D94B4DD807}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92256B4A-5241-40C4-B8D0-29D94B4DD807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1FABB87-E0FB-46CB-8528-2C1CDF4E24C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1FABB87-E0FB-46CB-8528-2C1CDF4E24C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1FABB87-E0FB-46CB-8528-2C1CDF4E24C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1FABB87-E0FB-46CB-8528-2C1CDF4E24C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

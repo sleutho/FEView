@@ -1,5 +1,4 @@
-﻿using FEViewUtil.Point;
-
+﻿
 namespace FEViewUtil
 {
     public class Vertex
