@@ -3,6 +3,9 @@
 *.lo
 *.o
 *.obj
+*.pdb
+*.manifest
+*.user
 
 # Studio Files
 obj/
