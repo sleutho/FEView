@@ -6,10 +6,12 @@
 *.pdb
 *.manifest
 *.user
+app.config
 
 # Studio Files
 obj/
 Properties/
+bin/
 
 # Compiled Dynamic libraries
 *.so
