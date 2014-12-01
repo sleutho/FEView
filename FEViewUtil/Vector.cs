@@ -4,6 +4,13 @@ namespace FEViewUtil
 {
     public class Vector
     {
+        public Vector()
+        {
+            this._x = 0.0;
+            this._y = 0.0;
+            this._z = 0.0;
+        }
+
         public Vector(double x, double y, double z)
         {
             this._x = x;
@@ -47,6 +54,14 @@ namespace FEViewUtil
                 v1.x * v2.x +
                 v1.y * v2.y +
                 v1.z * v2.z);
+        }
+
+        public static Vector operator %(Vector v1, Vector v2)
+        {
+            return new Vector(
+                v1.y * v2.z - v1.z * v2.y,
+                v1.z * v2.x - v1.x * v2.z,
+                v1.x * v2.y - v1.y * v2.x);
         }
 
 

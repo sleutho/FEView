@@ -36,6 +36,16 @@ namespace FEViewUtil
             return _vertexes[i];
         }
 
+        public List<Vertex> getVertexArray()
+        {
+            return _vertexes;
+        }
+
+        public int getNumberOfVertexes()
+        {
+            return _vertexes.Count;
+        }
+
         public FaceEnumerator GetEnumerator()
         {
             return new FaceEnumerator(this);

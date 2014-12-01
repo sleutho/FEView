@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
+
 namespace FEViewUtil
 {
     public class TriangleFace
@@ -10,22 +11,22 @@ namespace FEViewUtil
             _vertexNumbers = vertexNumbers;
         }
 
-        Point getModelCoord(Vertex[] vertexes, int i)
+        public Point getModelCoord(List<Vertex> vertexes, int i)
         {
             return vertexes[_vertexNumbers[i]].modelPoint;
         }
 
-        Point getViewCoord(Vertex[] vertexes, int i)
+        public Point getViewCoord(List<Vertex> vertexes, int i)
         {
             return vertexes[_vertexNumbers[i]].viewPoint;
         }
 
-        int getPixelX(Vertex[] vertexes, int i)
+        public int getPixelX(List<Vertex> vertexes, int i)
         {
             return vertexes[_vertexNumbers[i]].xPixel;
         }
 
-        int getPixelY(Vertex[] vertexes, int i)
+        public int getPixelY(List<Vertex> vertexes, int i)
         {
             return vertexes[_vertexNumbers[i]].xPixel;
         }

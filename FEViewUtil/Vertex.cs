@@ -5,8 +5,8 @@ namespace FEViewUtil
     {
         private int _xPixel;
         private int _yPixel;
-        private Point _ptModel;
-        private Point _ptView;
+        private Point _ptModel = new Point();
+        private Point _ptView = new Point();
 
         public Point modelPoint
         {
