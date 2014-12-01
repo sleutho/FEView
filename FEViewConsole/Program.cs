@@ -13,12 +13,55 @@ namespace FEViewConsole
 
             View view = new View();
 
+            modelViewTransformation(model, view);
             points2Pixel(model, view, 500, 500);
 
             System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(500, 500);
             paint(model, view, bitmap);
 
             bitmap.Save(args[1], System.Drawing.Imaging.ImageFormat.Png);
+        }
+
+        static void modelViewTransformation(Model model, View view)
+        {
+            Box modelBox = model.getModelBox();
+            Point middlePoint = modelBox.getMiddlePoint();
+            Vector middleVector = modelBox.getMiddleVector();
+
+            for (int i = 0; i < model.getNumberOfVertexes(); ++i)
+            {
+                Vertex vertex = model.getVertex(i);
+                Point point = vertex.modelPoint - middleVector;
+                vertex.viewPoint = view.transformation * point + middleVector;
+            }
+
+            if (view.perspectiveProjection)
+            {
+                for (int i = 0; i < model.getNumberOfVertexes(); ++i)
+                {
+                    Vertex vertex = model.getVertex(i);
+                    Point point = vertex.viewPoint - middleVector;
+
+                    if (point.z == view.projectionCenterZ)
+                    {
+                        vertex.viewPoint = new Point(
+                        ((view.projectionPictureZ - view.projectionCenterZ) * (point.x - view.projectionCenterX)) / (Double.Epsilon),
+                        ((view.projectionPictureZ - view.projectionCenterZ) * (point.y - view.projectionCenterY)) / (Double.Epsilon),
+                        point.z) + middleVector;
+                    }
+                    else
+                    {
+                        vertex.viewPoint = new Point(
+                        ((view.projectionPictureZ - view.projectionCenterZ) * (point.x - view.projectionCenterX)) / (point.z - view.projectionCenterZ),
+                        ((view.projectionPictureZ - view.projectionCenterZ) * (point.y - view.projectionCenterY)) / (point.z - view.projectionCenterZ),
+                        point.z) + middleVector;
+                    }
+
+                }
+
+            }
+
+            model.computeViewBox();
         }
 
         static void points2Pixel(Model model, View view, int width, int height)
@@ -30,13 +73,12 @@ namespace FEViewConsole
             if (midX < view.margin || midY < view.margin)
                 return;
 
-            //Vertex* vertexArr = model.GetVertexArray();
             Box viewBox = model.getViewBox();
             Point middlePoint = viewBox.getMiddlePoint();
 
             //catch devide by zero, evaluate zoomfactor
             double zoomMaxY, zoomMinY, zoomMaxX, zoomMinX;
-            if ((viewBox.maxY - middlePoint.y) < Double.Epsilon)
+            if (Math.Abs(viewBox.maxY - middlePoint.y) < Double.Epsilon)
             {
                 zoomMaxY = Math.Abs((midY - view.margin) / Double.Epsilon);
             }
@@ -45,7 +87,7 @@ namespace FEViewConsole
                 zoomMaxY = Math.Abs((midY - view.margin) / (viewBox.maxY - middlePoint.y));
             }
 
-            if ((viewBox.minY - middlePoint.y) < Double.Epsilon)
+            if (Math.Abs(viewBox.minY - middlePoint.y) < Double.Epsilon)
             {
                 zoomMinY = Math.Abs((midY - view.margin) / Double.Epsilon);
             }
@@ -54,7 +96,7 @@ namespace FEViewConsole
                 zoomMinY = Math.Abs((midY - view.margin) / (viewBox.minY - middlePoint.y));
             }
 
-            if ((viewBox.maxX - middlePoint.x) < Double.Epsilon)
+            if (Math.Abs(viewBox.maxX - middlePoint.x) < Double.Epsilon)
             {
                 zoomMaxX = Math.Abs((midX - view.margin) / Double.Epsilon);
             }
@@ -63,7 +105,7 @@ namespace FEViewConsole
                 zoomMaxX = Math.Abs((midX - view.margin) / (viewBox.maxX - middlePoint.x));
             }
 
-            if ((viewBox.minX - middlePoint.x) < Double.Epsilon)
+            if (Math.Abs(viewBox.minX - middlePoint.x) < Double.Epsilon)
             {
                 zoomMinX = Math.Abs((midX - view.margin) / Double.Epsilon);
             }
@@ -158,7 +200,7 @@ namespace FEViewConsole
 
                         vectorA = new Vector(face.getViewCoord(vertexArray, 0) - face.getViewCoord(vertexArray, 1));
                         vectorB = new Vector(face.getViewCoord(vertexArray, 0) - face.getViewCoord(vertexArray, 2));
-                        vectorN = vectorA % vectorB;//????
+                        vectorN = vectorA % vectorB;
                         vectorN.normalize();
 
                         double rest = Math.Abs(view.specular *

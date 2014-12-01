@@ -48,6 +48,6 @@ namespace FEViewUtil
         public System.Drawing.Color surfaceColor =
             System.Drawing.Color.FromName("Cyan");
 
-        Transformation transformation = new Transformation();
+        public Transformation transformation = new Transformation();
     }
 }

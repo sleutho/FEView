@@ -102,8 +102,15 @@ namespace FEViewUtil
 
         }
 
-        //compute viewBox
-        //public void finalizeViewTransformation() {}
+        public void computeViewBox()
+        {
+            for (int i = 0; i < getNumberOfVertexes(); ++i)
+            {
+                Vertex vertex = getVertex(i);
+
+                _viewBox.add(vertex.viewPoint);
+            }
+        }
 
         public void read(string file)
         {
@@ -186,8 +193,8 @@ namespace FEViewUtil
 
                 int[] vertexNumbers = {
                             int.Parse(fields[1]),
-                            int.Parse(fields[1]),
-                            int.Parse(fields[1])};
+                            int.Parse(fields[2]),
+                            int.Parse(fields[3])};
 
                 _faces.Add(new TriangleFace(vertexNumbers));
 

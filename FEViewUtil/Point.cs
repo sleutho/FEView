@@ -64,6 +64,14 @@ namespace FEViewUtil
             }
         }
 
+        public static Vector operator +(Point p, Vector v)
+        {
+            return new Vector(
+                p.x + v.x,
+                p.y + v.y,
+                p.z + v.z);
+        }
+
         public static Vector operator -(Point p, Vector v)
         {
             return new Vector(
@@ -78,6 +86,11 @@ namespace FEViewUtil
                 p1.x - p2.x,
                 p1.y - p2.y,
                 p1.z - p2.z);
+        }
+
+        public static implicit operator Point(Vector v)
+        {
+            return new Point(v.x, v.y, v.z);
         }
     }
 }
