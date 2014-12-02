@@ -25,7 +25,6 @@ namespace FEViewConsole
         static void modelViewTransformation(Model model, View view)
         {
             Box modelBox = model.getModelBox();
-            Point middlePoint = modelBox.getMiddlePoint();
             Vector middleVector = modelBox.getMiddleVector();
 
             for (int i = 0; i < model.getNumberOfVertexes(); ++i)
@@ -127,11 +126,8 @@ namespace FEViewConsole
 
                 Vector local = vertex.viewPoint - middelVector;
 
-                vertex.xPixel = Convert.ToInt32(Math.Round(
-                    local.x * zoom + middelVector.x + midX - middlePoint.x));
-
-                vertex.yPixel = height - Convert.ToInt32(Math.Round(
-                    local.y * zoom + middelVector.y + midY - middlePoint.y));
+                vertex.xPixel =          Convert.ToInt32(Math.Round(local.x * zoom + midX));
+                vertex.yPixel = height - Convert.ToInt32(Math.Round(local.y * zoom + midY));
             }
         }
 
