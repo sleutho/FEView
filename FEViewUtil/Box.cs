@@ -3,43 +3,52 @@ namespace FEViewUtil
 {
     public class Box
     {
-        public void add(Point pt)
-        {
-            if (pt.x < this.minX)
-                this.minX = pt.x;
-            if (pt.x > this.maxX)
-                this.maxX = pt.x;
-
-            if (pt.y < this.minY)
-                this.minY = pt.y;
-            if (pt.y > this.maxY)
-                this.maxY = pt.y;
-
-            if (pt.z < this.minZ)
-                this.minZ = pt.z;
-            if (pt.z > this.maxZ)
-                this.maxZ = pt.z;
-        }
-
-        public Point getMiddlePoint()
-        {
-            return new Point(
-                this.maxX - this.minX,
-                this.maxY - this.minY,
-                this.maxZ - this.minZ);
-        }
-
-        public Vector getMiddleVector()
-        {
-            return new Vector(getMiddlePoint());
-        }
-
+        private bool _empty = true;
         private double _minX;
         private double _minY;
         private double _minZ;
         private double _maxX;
         private double _maxY;
         private double _maxZ;
+
+        public void add(Point pt)
+        {
+            if (_empty)
+            {
+                minX = maxX = pt.x;
+                minY = maxY = pt.y;
+                minZ = maxZ = pt.z;
+                _empty = false;
+            }
+
+            if (pt.x < minX)
+                minX = pt.x;
+            if (pt.x > maxX)
+                maxX = pt.x;
+
+            if (pt.y < minY)
+                minY = pt.y;
+            if (pt.y > maxY)
+                maxY = pt.y;
+
+            if (pt.z < minZ)
+                minZ = pt.z;
+            if (pt.z > maxZ)
+                maxZ = pt.z;
+        }
+
+        public Point getMiddlePoint()
+        {
+            return new Point(
+                maxX - minX,
+                maxY - minY,
+                maxZ - minZ);
+        }
+
+        public Vector getMiddleVector()
+        {
+            return getMiddlePoint();
+        }
 
         public double minX
         {

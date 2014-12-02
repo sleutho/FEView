@@ -4,32 +4,41 @@ namespace FEViewUtil
 {
     public class Vector
     {
+        private double _x;
+        private double _y;
+        private double _z;
+
         public Vector()
         {
-            this._x = 0.0;
-            this._y = 0.0;
-            this._z = 0.0;
+            _x = 0.0;
+            _y = 0.0;
+            _z = 0.0;
         }
 
         public Vector(double x, double y, double z)
         {
-            this._x = x;
-            this._y = y;
-            this._z = z;
+            _x = x;
+            _y = y;
+            _z = z;
         }
 
         public Vector(double[] arr)
         {
-            this._x = x;
-            this._y = y;
-            this._z = z;
+            _x = x;
+            _y = y;
+            _z = z;
         }
 
         public Vector(Point pt)
         {
-            this._x = pt.x;
-            this._y = pt.y;
-            this._z = pt.z;
+            _x = pt.x;
+            _y = pt.y;
+            _z = pt.z;
+        }
+
+        public static implicit operator Vector(Point p)
+        {
+            return new Vector(p.x, p.y, p.z);
         }
 
         public static Vector operator +(Vector v1, Vector v2)
@@ -68,22 +77,18 @@ namespace FEViewUtil
         public double length()
         {
             return Math.Sqrt(
-                this._x * this._x + 
-                this._y * this._y + 
-                this._z * this._z);
+                _x * _x + 
+                _y * _y + 
+                _z * _z);
         }
 
         public void normalize()
         {
             double l = length();
-            this._x /= l;
-            this._y /= l;
-            this._z /= l;
+            _x /= l;
+            _y /= l;
+            _z /= l;
         }
-
-        private double _x;
-        private double _y;
-        private double _z;
 
         public double x
         {
