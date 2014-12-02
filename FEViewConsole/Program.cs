@@ -124,13 +124,14 @@ namespace FEViewConsole
             for (int i = 0; i < model.getNumberOfVertexes(); ++i)
             {
                 Vertex vertex = model.getVertex(i);
+
+                Vector local = vertex.viewPoint - middelVector;
+
                 vertex.xPixel = Convert.ToInt32(Math.Round(
-                    (vertex.viewPoint - middelVector).x * zoom + middelVector.x +
-                    midX - middlePoint.x));
+                    local.x * zoom + middelVector.x + midX - middlePoint.x));
 
                 vertex.yPixel = height - Convert.ToInt32(Math.Round(
-                    (vertex.viewPoint - middelVector).y * zoom + middelVector.y +
-                    midY - middlePoint.y));
+                    local.y * zoom + middelVector.y + midY - middlePoint.y));
             }
         }
 

@@ -40,9 +40,9 @@ namespace FEViewUtil
         public Point getMiddlePoint()
         {
             return new Point(
-                maxX - minX,
-                maxY - minY,
-                maxZ - minZ);
+                minX + (maxX - minX) / 2.0,
+                minY + (maxY - minY) / 2.0,
+                minZ + (maxZ - minZ) / 2.0);
         }
 
         public Vector getMiddleVector()
