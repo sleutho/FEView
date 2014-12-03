@@ -28,7 +28,7 @@ namespace FEViewUtil
 
         public int getPixelY(List<Vertex> vertexes, int i)
         {
-            return vertexes[_vertexNumbers[i] - 1].xPixel;
+            return vertexes[_vertexNumbers[i] - 1].yPixel;
         }
     }
 }

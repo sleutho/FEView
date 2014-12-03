@@ -12,11 +12,15 @@ namespace FEViewConsole
             model.read(args[0]);
 
             View view = new View();
+            view.transformation = view.transformation * new Transformation(-20, View.Axis.X_AXIS);
+            view.transformation = view.transformation * new Transformation(-30, View.Axis.Y_AXIS);
 
+            int width = 1920;
+            int height = 1080;
             modelViewTransformation(model, view);
-            points2Pixel(model, view, 500, 500);
+            points2Pixel(model, view, width, height);
 
-            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(500, 500);
+            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(width, height);
             paint(model, view, bitmap);
 
             bitmap.Save(args[1], System.Drawing.Imaging.ImageFormat.Png);
