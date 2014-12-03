@@ -125,9 +125,13 @@ namespace FEViewUtil
                         {
                             readVertexes(sr);
                         }
-                        else if (line.StartsWith("---ELEMENTE"))
+                        else if (line.StartsWith("---ELEMENTE-2D-V1"))
                         {
-                            readFaces(sr);
+                            readFaces(sr, new int[] { 2, 3, 4});
+                        }
+                        else if (line.StartsWith("---ELEMENTE-2D"))
+                        {
+                            readFaces(sr, new int[] { 1, 2, 3});
                         }
                         else if (line.StartsWith("---TITEL"))
                         {
@@ -174,7 +178,7 @@ namespace FEViewUtil
             }
         }
 
-        private void readFaces(StreamReader sr)
+        private void readFaces(StreamReader sr, int[] indexes)
         {
             int peek = sr.Peek();
             while (peek >= 0)
@@ -192,9 +196,9 @@ namespace FEViewUtil
                     System.StringSplitOptions.RemoveEmptyEntries);
 
                 int[] vertexNumbers = {
-                            int.Parse(fields[1]),
-                            int.Parse(fields[2]),
-                            int.Parse(fields[3])};
+                            int.Parse(fields[indexes[0]]),
+                            int.Parse(fields[indexes[1]]),
+                            int.Parse(fields[indexes[2]])};
 
                 _faces.Add(new TriangleFace(vertexNumbers));
 
