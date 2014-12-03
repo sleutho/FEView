@@ -116,7 +116,7 @@ namespace FEViewUtil
         {
             try
             {
-                using (StreamReader sr = new StreamReader(file))
+                using (StreamReader sr = new StreamReader(file, System.Text.Encoding.GetEncoding("iso-8859-1"), false))
                 {
                     while (sr.Peek() >= 0)
                     {
