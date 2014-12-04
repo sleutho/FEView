@@ -14,6 +14,18 @@ namespace FEViewConsole
             View view = new View();
             view.transformation = view.transformation * new Transformation(-20, View.Axis.X_AXIS);
             view.transformation = view.transformation * new Transformation(-30, View.Axis.Y_AXIS);
+            view.mode = View.Mode.SHADOW_ON;
+
+            view.perspectiveProjection = true;
+            view.projectionCenterZ = 1000.0;
+            view.projectionPictureZ = -300.0;
+
+            view.lightPositionX = 1000.0;
+            view.lightPositionY = 1000.0;
+            view.lightPositionZ = 1000.0;
+            view.iqd = 0.2;
+            view.specular = 0.2;
+            view.specularExponent = 0.7;
 
             int width = 1920;
             int height = 1080;
@@ -205,8 +217,9 @@ namespace FEViewConsole
                         vectorN = vectorA % vectorB;
                         vectorN.normalize();
 
+                        double bas = Math.Abs(2 * (vectorN * vectorL) + vectorV * vectorL);
                         double rest = Math.Abs(view.specular *
-                            Math.Pow(Math.Abs(2 * (vectorN * vectorL) + vectorV * vectorL), view.specularExponent));
+                            Math.Pow(bas, view.specularExponent));
 
                         int r = Convert.ToInt32((view.iqd * Math.Abs(vectorN * vectorL) + view.ambientR) * view.surfaceColor.R + rest * 255);
                         int g = Convert.ToInt32((view.iqd * Math.Abs(vectorN * vectorL) + view.ambientG) * view.surfaceColor.G + rest * 255);

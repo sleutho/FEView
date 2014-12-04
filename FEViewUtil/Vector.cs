@@ -59,10 +59,10 @@ namespace FEViewUtil
 
         public static double operator *(Vector v1, Vector v2)
         {
-            return Math.Sqrt(
+            return Math.Sqrt(Math.Abs(
                 v1.x * v2.x +
                 v1.y * v2.y +
-                v1.z * v2.z);
+                v1.z * v2.z));
         }
 
         public static Vector operator %(Vector v1, Vector v2)
