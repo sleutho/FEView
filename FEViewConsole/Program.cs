@@ -65,6 +65,7 @@ namespace FEViewConsole
             }
 
             model.computeViewBox();
+            model.sortFaces();
         }
 
         static void points2Pixel(Model model, View view, int width, int height)

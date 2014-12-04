@@ -112,6 +112,81 @@ namespace FEViewUtil
             }
         }
 
+        //Handle z-Buffer painting order this way 
+        public void sortFaces()
+        {
+            _faces.Sort(new TriangleFaceSort(this));
+        }
+
+        private class TriangleFaceSort : IComparer<TriangleFace>
+        {
+            private Model _model;
+            public TriangleFaceSort(Model model)
+            {
+                _model = model;
+            }
+
+            public int Compare(TriangleFace faceA, TriangleFace faceB)
+            {
+                if (faceA == null)
+                {
+                    if (faceB == null)
+                    {
+                        // If x is null and y is null, they're 
+                        // equal.  
+                        return 0;
+                    }
+                    else
+                    {
+                        // If x is null and y is not null, y 
+                        // is greater.  
+                        return -1;
+                    }
+                }
+                else
+                {
+                    // If x is not null... 
+                    // 
+                    if (faceB == null)
+                    // ...and y is null, x is greater.
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        //find min z coordinate to paint
+                        Point ap0 = faceA.getViewCoord(_model.getVertexArray(), 0);
+                        Point ap1 = faceA.getViewCoord(_model.getVertexArray(), 1);
+                        Point ap2 = faceA.getViewCoord(_model.getVertexArray(), 2);
+
+                        double amaxZ = ap0.z;
+                        if (ap1.z > amaxZ)
+                            amaxZ = ap1.z;
+                        if (ap2.z > amaxZ)
+                            amaxZ = ap2.z;
+
+                        Point bp0 = faceB.getViewCoord(_model.getVertexArray(), 0);
+                        Point bp1 = faceB.getViewCoord(_model.getVertexArray(), 1);
+                        Point bp2 = faceB.getViewCoord(_model.getVertexArray(), 2);
+
+                        double bmaxZ = bp0.z;
+                        if (bp1.z > bmaxZ)
+                            bmaxZ = bp1.z;
+                        if (bp2.z > bmaxZ)
+                            bmaxZ = bp2.z;
+
+                        if (amaxZ < bmaxZ)
+                            return -1;
+
+                        if (amaxZ == bmaxZ)
+                            return 0;
+                        return 1;
+                    }
+                }
+            }
+        }
+
+
         public void read(string file)
         {
             try
