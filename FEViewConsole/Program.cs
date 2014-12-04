@@ -25,7 +25,9 @@ namespace FEViewConsole
             view.lightPositionZ = 1000.0;
             view.iqd = 0.2;
             view.specular = 0.2;
-            view.specularExponent = 0.7;
+            view.specularExponent = 1.05;
+            view.ambientR = 0.2;
+            view.ambientG = 0.2;
 
             int width = 1920;
             int height = 1080;

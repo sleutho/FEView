@@ -25,19 +25,19 @@ namespace FEViewUtil
 
         public bool perspectiveProjection = false;
 
-        public double projectionCenterX = 0.0;
+        public double projectionCenterX = 0.0; // Koordinaten des Projektionszentrums
         public double projectionCenterY = 0.0;
         public double projectionCenterZ = 0.0;
-        public double projectionPictureZ = 0.0;
+        public double projectionPictureZ = 0.0; // Z-Koordinate der Bildebene
 
         public double lightPositionX = 1.0;
         public double lightPositionY = 1.0;
         public double lightPositionZ = 1.0;
 
-        public double alpha = 1.0;
-        public double specular = 1.0;
-        public double specularExponent = 1.0;
-        public double iqd = 1.0;//light intensity
+        public double alpha = 1.0; // 0.0<alpha<1.0
+        public double specular = 1.0; // Spiegelreflextionkoeff. (0.0<Rs<1.0)
+        public double specularExponent = 1.0; //Spiegelreflextionexpo. (m>1.0)
+        public double iqd = 1.0;//light intensity (0.0<Iqd<1.0)
 
         public double ambientR = 0.0;
         public double ambientG = 0.0;
